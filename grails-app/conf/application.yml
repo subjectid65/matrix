@@ -1,0 +1,42 @@
+---
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+grails:
+    codegen:
+        defaultPackage: mlm
+    profile: web
+
+---
+grails:
+    views:
+        gsp:
+            encoding: UTF-8
+            htmlcodec: xml
+            codecs:
+                scriptlet: html
+
+---
+
+
+environments:
+   development:
+    grails:
+       
+      mongodb:
+        host: "localhost"
+        port: 27017
+        username: ""
+        password: ""
+        databaseName: "mlm"
+  
+   production:
+     grails:
+       mongodb:
+              host: "localhost"
+              port: 27017
+              username: ""
+              password: ""
+              databaseName: "mlm"
