@@ -31,12 +31,7 @@ environments:
         username: ""
         password: ""
         databaseName: "mlm"
-  
-   production:
+    production:
      grails:
        mongodb:
-              host: "localhost"
-              port: 27017
-              username: ""
-              password: ""
-              databaseName: "mlm"
+               url: "mongodb+srv://subjectid:123321@cluster0.mq9xlid.mongodb.net/mlm?appName=Cluster0"
