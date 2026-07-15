@@ -94,7 +94,7 @@
                                             <span class="badge bg-secondary">Inactive</span>
                                         </g:else>
                                     </td>
-                                    <td>${cfg.createdAt?.format('yyyy-MM-dd')}</td>
+                                    <td>${cfg.createdAt ? new java.text.SimpleDateFormat('yyyy-MM-dd').format(cfg.createdAt) : '-'}</td>
                                     <td>
                                         <div class="btn-group btn-group-sm">
                                             <g:if test="${cfg.status != 'ACTIVE'}">
