@@ -157,20 +157,18 @@
                                     </td>
                                     <td>${m.level ?: 0}</td>
                                     <td>
-                                        <g:switch value="${m.status}">
-                                            <g:when test="${m.status == 'ACTIVE'}">
-                                                <span class="badge badge-active">Active</span>
-                                            </g:when>
-                                            <g:when test="${m.status == 'PENDING'}">
-                                                <span class="badge badge-pending">Pending</span>
-                                            </g:when>
-                                            <g:when test="${m.status == 'INACTIVE'}">
-                                                <span class="badge badge-inactive">Inactive</span>
-                                            </g:when>
-                                            <g:otherwise>
-                                                <span class="badge badge-banned">Banned</span>
-                                            </g:otherwise>
-                                        </g:switch>
+                                        <g:if test="${m.status == 'ACTIVE'}">
+                                            <span class="badge badge-active">Active</span>
+                                        </g:if>
+                                        <g:elseif test="${m.status == 'PENDING'}">
+                                            <span class="badge badge-pending">Pending</span>
+                                        </g:elseif>
+                                        <g:elseif test="${m.status == 'INACTIVE'}">
+                                            <span class="badge badge-inactive">Inactive</span>
+                                        </g:elseif>
+                                        <g:else>
+                                            <span class="badge badge-banned">Banned</span>
+                                        </g:else>
                                     </td>
                                     <td>${m.joinDate ?: '-'}</td>
                                     <td>

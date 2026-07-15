@@ -83,8 +83,8 @@
                                 <div class="col-md-4 mb-3">
                                     <label for="matrixHeight" class="form-label">Height</label>
                                     <select class="form-select" id="matrixHeight" name="matrixHeight">
-                                        <g:each var="h" in="[2, 3, 4, 5]">
-                                            <option value="${h}" ${h == 3 ? 'selected' : ''}>${h}</option>
+                                        <g:each var="h1" in="[2, 3, 4, 5]">
+                                            <option value="${h1}" ${h1 == 3 ? 'selected' : ''}>${h1}</option>
                                         </g:each>
                                     </select>
                                 </div>
@@ -238,25 +238,25 @@
             .then(response => response.json())
             .then(result => {
                 const div = document.getElementById('placementResult');
-                if (result.success) {
+                if (result && result.success) {
                     div.innerHTML = `
                         <div class="alert alert-success">
                             <h5><i class="fas fa-check-circle"></i> Success!</h5>
-                            <p>${result.message}</p>
+                            <p>` + result.message + `</p>
                             <hr>
-                            <p><strong>Member:</strong> ${result.data.member.userId}</p>
-                            <p><strong>Position:</strong> ${result.data.position}</p>
-                            <p><strong>Direction:</strong> ${result.data.direction}</p>
-                            <p><strong>Depth:</strong> ${result.data.depth}</p>
-                            <a href="${createLink(uri: '/member/show/')}" + "${result.data.member.id}" class="btn btn-primary btn-sm">View Member</a>
+                            <p><strong>Member:</strong> ` + (result.data?.member?.userId || 'N/A') + `</p>
+                            <p><strong>Position:</strong> ` + (result.data?.position || 'N/A') + `</p>
+                            <p><strong>Direction:</strong> ` + (result.data?.direction || 'N/A') + `</p>
+                            <p><strong>Depth:</strong> ` + (result.data?.depth || 'N/A') + `</p>
+                            <a href="${createLink(uri: '/member/show/')}` + result.data.member.id + `" class="btn btn-primary btn-sm">View Member</a>
                         </div>`;
                 } else {
-                    div.innerHTML = `<div class="alert alert-danger"><h5>Error</h5><p>${result.message}</p></div>`;
+                    div.innerHTML = '<div class="alert alert-danger"><h5>Error</h5><p>' + (result?.message || 'Unknown error') + '</p></div>';
                 }
             })
             .catch(error => {
                 document.getElementById('placementResult').innerHTML = 
-                    `<div class="alert alert-danger">Error: ${error.message}</div>`;
+                    '<div class="alert alert-danger">Error: ' + error.message + '</div>';
             });
         });
     </script>

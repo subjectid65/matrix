@@ -196,17 +196,15 @@
                                             <td>${m.sponsorId ?: 'N/A'}</td>
                                             <td><span class="badge bg-info">${m.placementPosition ?: 'ROOT'}</span></td>
                                             <td>
-                                                <g:switch value="${m.status}">
-                                                    <g:when test="${m.status == 'ACTIVE'}">
-                                                        <span class="badge bg-success">Active</span>
-                                                    </g:when>
-                                                    <g:when test="${m.status == 'PENDING'}">
-                                                        <span class="badge bg-warning">Pending</span>
-                                                    </g:when>
-                                                    <g:otherwise>
-                                                        <span class="badge bg-secondary">${m.status}</span>
-                                                    </g:otherwise>
-                                                </g:switch>
+                                            <g:if test="${m.status == 'ACTIVE'}">
+                                                <span class="badge bg-success">Active</span>
+                                            </g:if>
+                                            <g:elseif test="${m.status == 'PENDING'}">
+                                                <span class="badge bg-warning">Pending</span>
+                                            </g:elseif>
+                                            <g:else>
+                                                <span class="badge bg-secondary">${m.status}</span>
+                                            </g:else>
                                             </td>
                                             <td>${m.joinDate?: ''}</td>
                                             <td>

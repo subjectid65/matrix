@@ -96,33 +96,41 @@
         <!-- Leg Statistics -->
         <div class="row mb-4">
             <div class="col-md-6">
+                <%
+                    def leftCount = member?.leftLegCount ?: 0
+                    def leftPercent = ((leftCount as Double) / (legCapacity ?: 1) * 100)
+                %>
                 <div class="leg-stat leg-left-stat">
                     <h5><i class="fas fa-arrow-left text-primary"></i> Left Leg</h5>
                     <div class="d-flex justify-content-between mb-2">
-                        <span>Members: <strong>${member?.leftLegCount ?: 0}</strong></span>
+                        <span>Members: <strong><%= leftCount %></strong></span>
                         <span>Capacity: <strong>${legCapacity}</strong></span>
                     </div>
                     <div class="progress progress-thick">
                         <div class="progress-bar bg-primary" role="progressbar" 
-                     style="width: ${(member?.leftLegCount ?: 0) as double / (legCapacity ?: 1) * 100}%">
+                              style="width: <%= leftPercent %>%">
                         </div>
                     </div>
-                    <small class="text-muted">${((member?.leftLegCount ?: 0) as double / (legCapacity ?: 1) * 100).round(1)}% filled</small>
+                    <small class="text-muted"><%= String.format("%.1f", leftPercent) %>% filled</small>
                 </div>
             </div>
             <div class="col-md-6">
+                <%
+                    def rightCount = member?.rightLegCount ?: 0
+                    def rightPercent = ((rightCount as Double) / (legCapacity ?: 1) * 100)
+                %>
                 <div class="leg-stat leg-right-stat">
                     <h5><i class="fas fa-arrow-right text-success"></i> Right Leg</h5>
                     <div class="d-flex justify-content-between mb-2">
-                        <span>Members: <strong>${member?.rightLegCount ?: 0}</strong></span>
+                        <span>Members: <strong><%= rightCount %></strong></span>
                         <span>Capacity: <strong>${legCapacity}</strong></span>
                     </div>
                     <div class="progress progress-thick">
                         <div class="progress-bar bg-success" role="progressbar" 
-                     style="width: ${(member?.rightLegCount ?: 0) as double / (legCapacity ?: 1) * 100}%">
+                              style="width: <%= rightPercent %>%">
                         </div>
                     </div>
-                    <small class="text-muted">${((member?.rightLegCount ?: 0) as double / (legCapacity ?: 1) * 100).round(1)}% filled</small>
+                    <small class="text-muted"><%= String.format("%.1f", rightPercent) %>% filled</small>
                 </div>
             </div>
         </div>
@@ -140,12 +148,16 @@
             <div class="card-body">
                 <div class="matrix-container">
                     <div class="matrix-grid" style="grid-template-columns: repeat(${config?.matrixWidth ?: 3}, 1fr);">
-                        <g:each var="row" in="${0..<((matrixViz?.grid?.size() ?: 0) as int)}">
-                            <g:each var="colIdx" in="${0..<((matrixViz?.grid?.get(row)?.size() ?: 0) as int)}">
-                                <g:set var="cell" value="${matrixViz?.grid?.get(row)?.get(colIdx)}" />
-                                <div class="matrix-cell ${cell == member?.userId ? 'root' : (cell ? 'occupied' : 'empty')}">
+                        <%
+                            def grid = matrixViz?.grid
+                            def gridRows = grid?.size() ?: 0
+                            def gridCols = gridRows > 0 ? grid[0]?.size() ?: 0 : 0
+                        %>
+                        <g:each var="row" in="${0..<gridRows}">
+                            <g:each var="colIdx" in="${0..<gridCols}">
+                                <div class="matrix-cell ${grid[row][colIdx] == member?.userId ? 'root' : (grid[row][colIdx] ? 'occupied' : 'empty')}">
                                     <span class="cell-label">[${row + 1},${colIdx + 1}]</span>
-                                    <span class="cell-value">${cell ?: '-'}</span>
+                                    <span class="cell-value">${grid[row][colIdx] ?: '-'}</span>
                                 </div>
                             </g:each>
                         </g:each>

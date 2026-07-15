@@ -7,7 +7,7 @@ class MemberController {
     MatrixService matrixService
     MemberService memberService
 
-    static allowedMethods = [save: 'POST', update: 'PUT', delete: 'DELETE']
+    static allowedMethods = [save: 'POST', update: 'POST', delete: 'DELETE']
 
     def index() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
@@ -112,13 +112,10 @@ class MemberController {
             return
         }
         
-        def memberParams = params.allParams
-        member.properties = [
-            fullName: memberParams.fullName,
-            email: memberParams.email,
-            phoneNumber: memberParams.phoneNumber,
-            status: memberParams.status
-        ]
+        member.fullName = params.fullName
+        member.email = params.email
+        member.phoneNumber = params.phoneNumber
+        member.status = params.status
         
         if (member.hasErrors() || !member.save(flush: true)) {
             flash.message = "Failed to update member: ${member.errors.allErrors*.defaultMessage.join(', ')}"
