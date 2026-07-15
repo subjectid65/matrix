@@ -7,7 +7,7 @@ RUN chmod +x ./gradlew
  
  
 RUN ./gradlew bootJar
-From eclipse-temurin:17-jre-alpine AS runtime
+From eclipse-temurin:21-jre-alpine AS runtime
 
  
 ENV JAVA_OPTS="-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=75.0"
